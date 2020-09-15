@@ -1,0 +1,45 @@
+html,
+body,
+header,
+
+#intro{
+    font-family: 'Poppins',sans-serif;
+    background: url(../static/bgnd_user7.jpg) no-repeat center center fixed;
+    display: table;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size:cover;
+    background-size: cover;
+}
+.box{
+    position: absolute;
+    top: 50%;
+    left: 30%;
+    transform: translate(-50%,-50%);
+    width: 900px;
+    height: 700px;
+    padding: 40px;
+    background: transparent;
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.5);
+
+}
+.tablews {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #e0e3e6;
+}
+.tablews {
+    border-collapse: collapse;
+}
+.tablews td, .tablews th {
+    font-size: 20px;
+    padding: 15px 15px;
+    vertical-align: top;
+    border-top: 1px solid #e0e3e6;
+}

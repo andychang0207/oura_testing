@@ -1,0 +1,31 @@
+{% extends "bootstrap/base.html"  %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}
+Signup
+{% endblock %}
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="../static/style.css">
+<script src="https://kit.fontawesome.com/8018589ca3.js" crossorigin="anonymous"></script>
+{% endblock %}
+{% block content %}
+<div class="box" >
+    <div class="box-img">
+        <img src="{{url_for('static',filename='caticon.svg')}}"  width="120px" height="120px">
+    </div>
+    <form method="POST" action="/signup" >
+        
+        {{ form.hidden_tag() }}
+        <div class="inputbox">
+        {{ wtf.form_field(form.username) }}
+        </div>
+        <div class="inputbox">
+        {{ wtf.form_field(form.password) }}
+        </div>
+        <div class="inputbox">
+        {{ wtf.form_field(form.confirm) }}
+        </div>
+        {{ wtf.form_field(form.submit) }}
+    </form>
+</div>
+{% endblock %}

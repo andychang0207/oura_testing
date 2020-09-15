@@ -1,0 +1,24 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}
+user page
+{% endblock %}
+{% block styles %}
+{{ super() }}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../static/style_user.css">
+{% endblock %}
+{% block navbar %}
+    {% include "navbar.html" %}
+{% endblock %}
+{% block content %}
+
+<div class="box">
+<h1>Welcome {{ current_user.username }}</h1>
+{% if current_user.user_id %}
+{% include "user_table.html" %}
+<a class="btn btn-primary" role="button" href="/summaries">Download into Database</a>
+{% else %}
+<a class="btn btn-primary" role="button" href="/oura_login">Connect to Oura</a>
+{% endif %}
+</div>
+{% endblock %}

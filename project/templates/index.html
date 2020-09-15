@@ -1,0 +1,19 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}test-app{% endblock %}
+
+{% block styles %}
+<link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../static/style_index.css">
+{% endblock %}
+{% block navbar %}
+    {% include "navbar.html" %}
+{% endblock %}
+
+{% block content %}
+
+<div style="position:absolute;top: 50%;left: 15%;">
+    <h1>Welcome to Oura App.</h1>
+    <p><b>Developing....</b></p>
+</div>
+{% endblock %}

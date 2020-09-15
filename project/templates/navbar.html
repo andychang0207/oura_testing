@@ -1,0 +1,28 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">
+            <img style="max-width:100px; margin-top: -10px;" alt="Loading" src="{{url_for('static',filename='icon/caticon.jpg')}}" title = "omg-cat" width="40" height="40" >
+        </a>
+        <a class="navbar-brand" href="/" >
+          Test-app
+        </a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <form class="navbar-form navbar-right">
+          {% if current_user.username %}
+          <a class="btn btn-default" href="/logout" role="button">Log out</a>
+          {% else %}
+          <a class="btn btn-default" href="/login" role="button">Log in</a>
+          <a class="btn btn-default" href="/signup" role="button">Sign up</a>
+          {% endif %}
+        </form>
+      </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div id="intro" class="view">
+  <div class="full-bg-img">
+  </div>
+</div>
