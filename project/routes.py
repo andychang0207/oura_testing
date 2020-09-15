@@ -10,11 +10,12 @@ import os
 from requests_oauthlib import OAuth2Session
 import ast
 from datetime import datetime,timedelta
-from project.Register import LoginForm,LoginForm
+from project.Register import LoginForm,RegisterForm
 from project.model import User
 from project.token_saver import token_saver
 from project.update_to_db import to_db
-from . import login
+from . import login,db
+
 
 with open('project/credentials/db_credentials.json') as db_file:
     data_base = json.load(db_file)
