@@ -69,6 +69,7 @@ def home():
 @app.route('/login',methods=['POST','GET'])
 def login():
     if current_user.is_authenticated:
+        session['username'] = current_user.username
         redirect(url_for('user_page'))
     form = LoginForm()
     if form.validate_on_submit():
@@ -80,6 +81,9 @@ def login():
 @app.route('/logout')
 @login_required
 def logout():
+    session.pop('user_info',None)
+    session.pop('oauth',None)
+    session.pop('username',None)
     logout_user()
     return redirect(url_for('home'))
 
