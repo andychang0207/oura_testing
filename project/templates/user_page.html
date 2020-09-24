@@ -16,7 +16,6 @@ user page
 <h1>Welcome {{ current_user.username }}</h1>
 {% if current_user.user_id %}
 {% include "user_table.html" %}
-<a class="btn btn-primary" role="button" href="/summaries">Download into Database</a>
 {% else %}
 <a class="btn btn-primary" role="button" href="/oura_login">Connect to Oura</a>
 {% endif %}

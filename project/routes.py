@@ -120,6 +120,44 @@ def user_page():
             'client_id':CLIENT_ID,
             'client_secret':CLIENT_SECRET,
         }
+        summaries = ['sleep','activity','readiness']
+        con = psycopg2.connect(database = DB_NAME,host = DB_HOST,user = DB_USER,password = DB_PASS,port = DB_PORT)
+        cur = con.cursor()
+        cur.execute('''SELECT last_visit FROM oura_user_profile
+        WHERE user_id = %s''',(current_user.user_id,))
+        rows = cur.fetchall()
+        cur.close()
+        con.close()
+        flag = True
+        for summary in summaries:
+            if rows[0][0] is None:
+                url = 'https://api.ouraring.com/v1/' + summary
+            else:
+                START_DATE = rows[0][0].strftime("%Y-%m-%d")
+                url = 'https://api.ouraring.com/v1/'+ summary +'?start=' + START_DATE
+            client = OAuth2Session(CLIENT_ID,token=token)
+            result = client.get(url)
+            try:
+                df = result.json()[summary]
+                #df.to_csv('static/output/'+summary+'4.csv')
+                flag = flag and to_db(summary,df,current_user.user_id)
+            except:
+                token = client.refresh_token(TOKEN_URL,**extra)
+                print(token)
+                token_saver(token)
+                client = OAuth2Session(CLIENT_ID,token=token)
+                result = client.get(url)
+                df = result.json()[summary]
+                flag = flag and to_db(summary,df,current_user.user_id)
+        VISIT_DATE = datetime.strftime(datetime.now()-timedelta(days=2),"%Y/%m/%d")
+        con = psycopg2.connect(database = DB_NAME,host = DB_HOST,user = DB_USER,password = DB_PASS,port = DB_PORT)
+        cur = con.cursor()
+        cur.execute('''UPDATE oura_user_profile
+                SET last_visit = %s
+                WHERE user_id = %s''',(VISIT_DATE,current_user.user_id))
+        con.commit()
+        cur.close()
+        con.close()
         client = OAuth2Session(CLIENT_ID,token=token)
         result = client.get('https://api.ouraring.com/v1/userinfo')
         try:
@@ -270,65 +308,3 @@ def profile():
     
     test = ast.literal_eval(str(user_profile))
     return render_template("profile_page.html" ,**test)
-
-#下載 user daily data
-
-@app.route('/summaries')
-@login_required
-def summaries():
-    """Request user data about sleep. Save as CSV file.
-    """
-    token = {
-        'refresh_token' : current_user.refresh_token,
-        'token_type':'bearer',
-        'access_token':current_user.access_token,
-        'expires_in':current_user.expires_in
-    }
-    extra = {
-        'client_id':CLIENT_ID,
-        'client_secret':CLIENT_SECRET,
-    }
-    summaries = ['sleep','activity','readiness']
-    con = psycopg2.connect(database = DB_NAME,host = DB_HOST,user = DB_USER,password = DB_PASS,port = DB_PORT)
-    cur = con.cursor()
-    cur.execute('''SELECT last_visit FROM oura_user_profile
-    WHERE user_id = %s''',(current_user.user_id,))
-    rows = cur.fetchall()
-    cur.close()
-    con.close()
-    flag = True
-    for summary in summaries:
-        if rows[0][0] is None:
-            url = 'https://api.ouraring.com/v1/' + summary
-        else:
-            START_DATE = rows[0][0].strftime("%Y-%m-%d")
-            url = 'https://api.ouraring.com/v1/'+ summary +'?start=' + START_DATE
-        
-        client = OAuth2Session(CLIENT_ID,token=token)
-        result = client.get(url)
-        try:
-            df = result.json()[summary]
-            #df.to_csv('static/output/'+summary+'4.csv')
-            flag = flag and to_db(summary,df,current_user.user_id)
-        except:
-            token = client.refresh_token(TOKEN_URL,**extra)
-            print(token)
-            token_saver(token)
-            client = OAuth2Session(CLIENT_ID,token=token)
-            result = client.get(url)
-            df = result.json()[summary]
-            flag = flag and to_db(summary,df,current_user.user_id)
-    VISIT_DATE = datetime.strftime(datetime.now()-timedelta(days=1),"%Y/%m/%d")
-    con = psycopg2.connect(database = DB_NAME,host = DB_HOST,user = DB_USER,password = DB_PASS,port = DB_PORT)
-    cur = con.cursor()
-    cur.execute('''UPDATE oura_user_profile
-            SET last_visit = %s
-            WHERE user_id = %s''',(VISIT_DATE,current_user.user_id))
-    con.commit()
-    cur.close()
-    con.close()
-    if flag:
-        content = 'Successfully insert into database.'
-    else:
-        content = 'insertion failure.'
-    return render_template('sum_page.html',content=content)
