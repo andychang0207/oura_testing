@@ -7,6 +7,7 @@ import plotly.graph_objs as go
 from datetime import timedelta,datetime
 import psycopg2
 import pandas as pd
+import numpy as np
 import json
 from flask_login import current_user
 from flask import session
@@ -468,14 +469,28 @@ def init_dashboard(server):
                     num = summary_date.index(dt)
                     inactive_hr,inactive_min = time_change_min(inactive[num])
                     time_step = [day_start[num]+timedelta(minutes=i) for i in range(0,len(met_1min[num]))]
+                    color_bar = np.array(['rgb(255,255,255)'] * len(met_1min[num]))
+                    for i in range(0,len(met_1min[num])):
+                        if met_1min[num][i] < 1.05:
+                            color_bar[i]='#cced93'
+                        elif (met_1min[num][i] >= 1.05) and (met_1min[num][i] < 3):
+                            color_bar[i]='#85a352'
+                        elif (met_1min[num][i] >= 3) and (met_1min[num][i] < 7):
+                            color_bar[i]='#536337'
+                        else:
+                            color_bar[i]='#2b4006'
                     fig_data_met = go.Bar(
                         x = time_step,
-                        y = met_1min[num]
+                        y = met_1min[num],
+                        marker = {'color':color_bar}
                     )
+                    
                     met_g = dcc.Graph(id='graph_met',config={'displayModeBar':False},style={'width':'35vw','height':'20vw','margin':'10px'},figure={
                         'data':[fig_data_met],
-                        'layout':go.Layout(yaxis = dict(tickvals=[1.05,2,3,7],ticktext=['inactive','low','medium','high'],gridcolor='#5b5b5b'),title = 'Daily Movement',paper_bgcolor="#1f2630",plot_bgcolor="#1f2630",font=dict(color="#2cfec1"))
+                        'layout':go.Layout(yaxis = dict(tickvals=[0,1.05,3,7],ticktext=['inactive','low','medium','high'],gridcolor='#5b5b5b'),title = 'Daily Movement',paper_bgcolor="#1f2630",plot_bgcolor="#1f2630",font=dict(color="#2cfec1"))
                     })
+                    labels=['rest','inactive','low','medium','high']
+                    values=[rest[num],inactive[num],low[num],medium[num],high[num]]
                     return html.Div(
                                 className='graph_output',
                                 children=[
@@ -502,26 +517,29 @@ def init_dashboard(server):
                                                 [html.H1(str(inactive_hr)+'h'+str(inactive_min)+'m'), html.P("Inactive")],
                                                 className="mini_container",
                                             ),
+                                            html.Div(
+                                                [html.H1(str(average_met[num])+' MET'), html.P("Average MET")],
+                                                className="mini_container",
+                                            ),
+                                            html.Div(
+                                                [html.H1(str(daily_movement[num])+' meters'), html.P("Walking Equivalent")],
+                                                className="mini_container",
+                                            ),
                                             
                                         ]
                                     ),
                                     html.Div(
                                         className='met_g',
                                         children = [
-                                            met_g
+                                            met_g,
+                                            dcc.Graph(
+                                            style={'width':'35vw','height':'20vw','margin':'10px'},
+                                            figure={
+                                                'data':[go.Pie(labels=labels, values=values,marker={'colors': ['#e6e3e3','#cced93','#85a352','#536337','#2b4006']},hole=.3)],
+                                                'layout':go.Layout(paper_bgcolor="#1f2630",font=dict(color="#fff")),
+                                                })
                                         ]
                                     ),
-                                    html.Div(
-                                        className='hyp_g',
-                                        children=[
-                                            
-                                    ]),
-                                    html.Div(
-                                        className='rmssd_g',
-                                        children=[
-                                            
-                                        ]
-                                    )
                                 ])
             else:
                 return
