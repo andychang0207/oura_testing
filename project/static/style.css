@@ -25,6 +25,14 @@ body{
     top: -65px;
     left: 35%;
 }
+.box .box-header{
+    color: #fff;
+    text-align: center;
+    margin-bottom: 8%;
+    font-weight: bold;
+    font-size: 40px;
+    font-family: 'Courgette';
+}
 .box .inputbox{
     position: relative;
 }

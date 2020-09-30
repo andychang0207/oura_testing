@@ -6,7 +6,8 @@ import psycopg2
 import pandas as pd
 from urllib.parse import urlparse,urlencode
 import requests
-import os
+import os 
+from io import StringIO
 from requests_oauthlib import OAuth2Session
 import ast
 from datetime import datetime,timedelta
@@ -42,7 +43,6 @@ def update_db(data_name,df,user_id):
     cur.close()
     con.close()
     return True
-
 #app端ID
 CLIENT_ID = credentials['CLIENT_ID']
 #app端Secretkey

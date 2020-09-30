@@ -7,12 +7,13 @@ Signup
 {{super()}}
 <link rel="stylesheet" href="../static/style.css">
 <script src="https://kit.fontawesome.com/8018589ca3.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
 {% endblock %}
 {% block content %}
 <div class="box" >
-    <div class="box-img">
-        <img src="{{url_for('static',filename='caticon.svg')}}"  width="120px" height="120px">
-    </div>
+    
+    <h1 class="box-header">Sign up</h1>
+    
     <form method="POST" action="/signup" >
         
         {{ form.hidden_tag() }}

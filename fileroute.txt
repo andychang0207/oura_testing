@@ -1,0 +1,16 @@
+/oura_testing
+|--- /project
+|    |--- /credentials
+|    |--- /static
+|    |--- /templates
+|    |--- /dash
+|    |    |___ dashboard.py
+|    |--- __init__.py
+|    |--- model.py
+|    |--- Register.py
+|    |--- routes.py
+|    |--- token_saver.py
+|    |___ update_to_db.py
+|--- config.py
+|--- requirement.txt
+|___ wsgi.py
