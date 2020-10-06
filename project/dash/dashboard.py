@@ -308,9 +308,10 @@ def init_dashboard(server):
                         name = 'Scatter',
                         mode = 'lines+markers'
                     )
+                    up_bound = ((max(data[num])//10)+1)*10
                     hr_g = dcc.Graph(id='graph1',config={'displayModeBar':False},style={'width':'35vw','height':'20vw','margin':'10px'},figure={
                         'data':[fig_data_hr],
-                        'layout':go.Layout(yaxis = dict(range=[40,70]),title = 'Resting heart rate',paper_bgcolor="#1f2630",plot_bgcolor="#1f2630",font=dict(color="#2cfec1"))
+                        'layout':go.Layout(yaxis = dict(range=[40,up_bound]),title = 'Resting heart rate')
                     })
                     fig_data_hyp = go.Scatter(
                         y = hyp[num],
@@ -320,7 +321,7 @@ def init_dashboard(server):
                     )
                     hyp_g = dcc.Graph(id='graph2',config={'displayModeBar':False},style={'width':'35vw','height':'20vw','margin':'10px'},figure={
                         'data':[fig_data_hyp],
-                        'layout':go.Layout(yaxis = dict(range=[1,4],tickvals=[1,2,3,4],ticktext=['deep','light','rem','awake']),title = 'Sleep stages',paper_bgcolor="#1f2630",plot_bgcolor="#1f2630",font=dict(color="#2cfec1"))
+                        'layout':go.Layout(yaxis = dict(range=[1,4],tickvals=[1,2,3,4],ticktext=['deep','light','rem','awake']),title = 'Sleep stages')
                     })
                     fig_data_rmssd = go.Scatter(
                         y = rmssd_5min[num],
@@ -330,7 +331,7 @@ def init_dashboard(server):
                     )
                     rmssd_g = dcc.Graph(id='graph3',config={'displayModeBar':False},style={'width':'35vw','height':'20vw','margin':'10px'},figure={
                         'data':[fig_data_rmssd],
-                        'layout':go.Layout(yaxis = dict(range=[0,300]),title = 'Heart Rate Variability',paper_bgcolor="#1f2630",plot_bgcolor="#1f2630",font=dict(color="#2cfec1"))
+                        'layout':go.Layout(yaxis = dict(range=[0,300]),title = 'Heart Rate Variability')
                     })
                     dura_hr , dura_min = time_change(duration[num])
                     slp_hr , slp_min = time_change(total[num])
@@ -396,8 +397,7 @@ def init_dashboard(server):
                                     dcc.Graph(
                                         style={'width':'35vw','height':'20vw','margin':'10px'},
                                         figure={
-                                            'data':[go.Pie(labels=labels, values=values,marker={'colors': ['#aecaf5','#fff','#063a8a','#516f9c']},hole=.3)],
-                                            'layout':go.Layout(paper_bgcolor="#1f2630",font=dict(color="#fff")),
+                                            'data':[go.Pie(labels=labels, values=values,marker={'colors': ['#aecaf5','#e6e3e3','#063a8a','#516f9c']},hole=.3)]
                                             })
                             ]),
                             html.Div(
@@ -487,7 +487,7 @@ def init_dashboard(server):
                     
                     met_g = dcc.Graph(id='graph_met',config={'displayModeBar':False},style={'width':'35vw','height':'20vw','margin':'10px'},figure={
                         'data':[fig_data_met],
-                        'layout':go.Layout(yaxis = dict(tickvals=[0,1.05,3,7],ticktext=['inactive','low','medium','high'],gridcolor='#5b5b5b'),title = 'Daily Movement',paper_bgcolor="#1f2630",plot_bgcolor="#1f2630",font=dict(color="#2cfec1"))
+                        'layout':go.Layout(yaxis = dict(tickvals=[0,1.05,3,7],ticktext=['inactive','low','medium','high']),title = 'Daily Movement')
                     })
                     labels=['rest','inactive','low','medium','high']
                     values=[rest[num],inactive[num],low[num],medium[num],high[num]]
@@ -535,8 +535,7 @@ def init_dashboard(server):
                                             dcc.Graph(
                                             style={'width':'35vw','height':'20vw','margin':'10px'},
                                             figure={
-                                                'data':[go.Pie(labels=labels, values=values,marker={'colors': ['#e6e3e3','#cced93','#85a352','#536337','#2b4006']},hole=.3)],
-                                                'layout':go.Layout(paper_bgcolor="#1f2630",font=dict(color="#fff")),
+                                                'data':[go.Pie(labels=labels, values=values,marker={'colors': ['#e6e3e3','#cced93','#85a352','#536337','#2b4006']},hole=.3)]
                                                 })
                                         ]
                                     ),

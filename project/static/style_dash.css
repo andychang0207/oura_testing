@@ -4,7 +4,7 @@ header,
 
 #intro{
     font-family: 'Poppins',sans-serif;
-    background: #1f2630;
+    background: #f2f2f2;
     display: table;
     position: relative;
     margin: 0;
@@ -28,56 +28,70 @@ header,
 .mini_container {
     flex: 1;
     border-radius: 5px;
-    background-color: #252e3f;
+    background-color: #fff;
     margin: 10px;
     padding: 15px;
     position: relative;
-    color: #fff;
+    color: #252e3f;
+    box-shadow: 2px 2px 2px lightgrey;
+    border-radius: 5px;
 }
 .mini_container_g {
     flex: 1;
     border-radius: 5px;
-    background-color: #252e3f;
+    background-color: #fff;
     float: left;
     margin: 10px;
     padding: 15px;
     position: relative;
-    color: #fff;
+    color: #252e3f;
+    box-shadow: 2px 2px 2px lightgrey;
+    border-radius: 5px;
 }
 .hr_g {
-    background-color: #252e3f;
+    background-color: #fff;
     float: right;
     padding: 1rem;
     margin: 10px;
+    box-shadow: 2px 2px 2px lightgrey;
+    border-radius: 5px;
 }
 .hyp_g {
-    background-color: #252e3f;
+    background-color: #fff;
     float: left;
     padding: 1rem;
     margin: 10px;
+    box-shadow: 2px 2px 2px lightgrey;
+    border-radius: 5px;
 }
 .rmssd_g {
-    background-color: #252e3f;
+    background-color: #fff;
     float: right;
     padding: 1rem;
     margin: 10px;
+    box-shadow: 2px 2px 2px lightgrey;
+    border-radius: 5px;
 }
 .met_g {
-    background-color: #252e3f;
+    background-color: #fff;
     float: right;
     padding: 1rem;
     margin: 10px;
+    box-shadow: 2px 2px 2px lightgrey;
+    border-radius: 5px;
 }
 .pie_sleep{
-    background-color: #252e3f;
+    background-color: #fff;
     float: left;
     width: 35vw;
     height: 20vw;
     padding: 1rem;
     margin: 10px;
+    border-radius: 5px;
 }
+/*
 .drop-container {
-    background-color: #252e3f;
+    background-color: #fff;
     width:27vw;
     padding: 15px;
     margin: 10px;
@@ -86,7 +100,7 @@ header,
     background-color: #252e3f;
     border-radius: 4px;
     border: 1px solid #ccc;
-    /*color: #ff6;*/
+    color: #ff6;
     display: table;
     border-spacing: 0;
     border-collapse: separate;
@@ -112,7 +126,7 @@ header,
 }
 .DateInput {
     color:#fff;
-}
+}*/
 /*
 .DateInput_input__focused{
     background: #1f2630;
