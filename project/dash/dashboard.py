@@ -302,6 +302,20 @@ def init_dashboard(server):
                 time_start,time_step,data,summary_date,hyp,score,eff,total,hr_low,duration,rem,awake,deep,light,latency,hr_average,breath_average,rmssd,rmssd_5min,temperature_delta = fetch_db_sleep(select,current_user.user_id)
                 if dt - timedelta(days=1)  in summary_date:
                     num = summary_date.index(dt- timedelta(days=1))
+                    threshold = 40
+                    color_bar = np.array(['rgb(31, 119, 180)'] * len(rmssd_5min[num]))
+                    alert = False
+                    for i in range(0,len(rmssd_5min[num])):
+                        if rmssd_5min[num][i] < threshold and rmssd_5min[num][i] != 0:
+                            color_bar[i] = 'rgb(180, 31, 31)'
+                            alert = True
+                    if alert:
+                        alert_out = html.Div(
+                            [html.P('Rmssd under threshold !!',style={'color':'rgb(180, 31, 31)'})],
+                            className="mini_container_g",
+                        )
+                    else:
+                        alert_out = None
                     fig_data_hr = go.Scatter(
                         y = data[num],
                         x = time_step[num],
@@ -327,7 +341,8 @@ def init_dashboard(server):
                         y = rmssd_5min[num],
                         x = time_step[num],
                         name='Scatter',
-                        mode='lines+markers'
+                        mode='lines+markers',
+                        marker = dict(color=color_bar)
                     )
                     rmssd_g = dcc.Graph(id='graph3',config={'displayModeBar':False},style={'width':'35vw','height':'20vw','margin':'10px'},figure={
                         'data':[fig_data_rmssd],
@@ -412,6 +427,7 @@ def init_dashboard(server):
                                         [html.H1(str(max(rmssd_5min[num]))+' ms'), html.P("max")],
                                         className="mini_container_g",
                                     ),
+                                    alert_out
                                 ]
                             )
                         ])
