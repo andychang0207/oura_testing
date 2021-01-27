@@ -1,16 +1,26 @@
 # Oura ring user dashboard website
 ## About The Project
-A user friendly third-party web helps visualize oura users’ data.<br>
+A user friendly third-party web helps visualize oura users’ data.
+<br>
 First, you need to sign up
+
 ![alt text](./img/signup.jpg)
+
 <br>Second, you can login with your account
+
 ![alt text](./img/login.jpg)
+
 <br> As long as you login and authorize with your oura account, user page will show your personal data
+
 ![alt text](./img/userpage.jpg)
 
 <br> Dashboard
 
 ![image](./img/dashboard.gif)
+### Built With
+* <a href="https://dash.plotly.com">Python Flask</a>
+* <a href="https://pypi.org/project/Flask/">Python Dash Plotly</a>
+
 ## Getting Started
 ### prerequisites
 * PostgreSQL
