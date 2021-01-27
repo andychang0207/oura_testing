@@ -10,7 +10,7 @@ First, you need to sign up
 
 <br> Dashboard
 
-![alt text](./img/dashboard.gif)
+![image](./img/dashboard.gif)
 ## Getting Started
 ### prerequisites
 * PostgreSQL
