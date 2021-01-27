@@ -7,7 +7,9 @@ First, you need to sign up
 ![alt text](./img/login.jpg)
 <br> As long as you login and authorize with your oura account, user page will show your personal data
 ![alt text](./img/userpage.jpg)
-<br>Dashboard
+
+<br> Dashboard
+
 ![alt text](./img/dashboard.gif)
 ## Getting Started
 ### prerequisites
